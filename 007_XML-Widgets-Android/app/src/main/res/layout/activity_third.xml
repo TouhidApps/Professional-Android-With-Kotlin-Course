@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:background="#FED3D3"
+        android:padding="10dp"
+        android:text="Md Touhidul Islam"
+        android:textSize="22sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:background="#A5B7FB"
+        android:padding="10dp"
+        android:layout_gravity="bottom"
+        android:text="Bangladesh"
+        android:gravity="center"
+        android:textSize="22sp" />
+
+</LinearLayout>

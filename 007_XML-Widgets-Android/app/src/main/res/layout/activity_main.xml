@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/tvName"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_marginStart="33dp"-->
+            <!--        android:layout_marginEnd="33dp"-->
+            <!--        android:background="#3256F5"-->
+            <!--        android:gravity="center"-->
+            <!--        android:paddingTop="8dp"-->
+            <!--        android:paddingBottom="8dp"-->
+            <!--        android:text=""-->
+            <!--        tools:text="Touhid"-->
+            <!--        android:textColor="#F50202"-->
+            <!--        android:textSize="30sp"-->
+            <!--        android:textStyle="bold|italic"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/tvTitle"-->
+            <!--        android:background="#A74E4E"-->
+            <!--        android:text="Android Studio"-->
+            <!--        android:visibility="invisible"-->
+            <!--        tools:visibility="visible"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"/>-->
+
+            <!--    <androidx.appcompat.widget.AppCompatTextView-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"/>-->
+
+            <!--    <com.google.android.material.textview.MaterialTextView-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"/>-->
+
+            <EditText
+                android:id="@+id/etUserName"
+                android:hint="User Name"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawablePadding="10dp"
+                android:textColor="#D61212"
+                android:inputType="text"
+                android:digits=" abcABC"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColorHint="#033BE0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:hint="Password"
+                android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="10dp"
+                android:textColor="#D61212"
+                android:inputType="textPassword"
+                android:digits=" abcABC"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textColorHint="#033BE0"
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etUserName"
+                android:layout_height="wrap_content"/>
+
+
+            <!--    <androidx.appcompat.widget.AppCompatEditText-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="wrap_content"/>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/tilPhoneNumber"
+                app:layout_constraintTop_toBottomOf="@+id/etPassword"
+                android:hint="Phone Number"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/ivFirst"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tilPhoneNumber"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/gpt4bd_alter_image"
+                android:scaleType="centerCrop"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSecond"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivFirst"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/gpt4bd_alter_image"
+                android:scaleType="centerCrop"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivThird"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivSecond"
+                android:layout_width="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gpt4bd_alter_image"
+                android:layout_height="200dp"
+                app:strokeWidth="5dp"
+                app:strokeColor="@color/design_default_color_error"/>
+
+            <Button
+                android:id="@+id/btnNext"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivThird"
+                android:layout_width="wrap_content"
+                android:text="Next"
+                android:layout_height="wrap_content"
+                android:onClick="showMyToast"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:text="Go"
+                android:onClick="goToNextActivity"
+                android:layout_height="wrap_content"
+                android:background="@color/white"/>
+
+            <com.google.android.material.button.MaterialButton
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnGo"
+                android:layout_width="wrap_content"
+                android:text="Submit"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/baseline_person_24"
+                app:iconGravity="end"
+                app:cornerRadius="8dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/design_default_color_error"
+                app:backgroundTint="@color/cardview_dark_background"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
