@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivMain"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/me" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/header_article_gradient"
+                app:layout_constraintBottom_toBottomOf="@+id/ivMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+                app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+                android:textColor="#fff"
+                android:fontFamily="serif"
+                app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
+                android:textStyle="bold"
+                android:text="Nomads. An unconventional but possible way of life."
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSubtitle"
+                android:layout_width="0dp"
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:paddingBottom="20dp"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toStartOf="@+id/ivFav"
+                app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:text="Lorem ipsum dolor sit amet. consectetur adipiscing elit. Cras dictum tristique arcu"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/ivMain"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="50dp"
+                android:id="@+id/ivFav"
+                android:tint="#fff"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+                app:srcCompat="@drawable/baseline_turned_in_not_24"
+                app:layout_constraintBottom_toBottomOf="@+id/ivMain"
+                android:layout_height="50dp"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="50dp"
+                android:id="@+id/ivUser"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/ivMain"
+                app:layout_constraintStart_toEndOf="@+id/guidelineLeft"
+                app:srcCompat="@drawable/baseline_supervised_user_circle_24"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                app:shapeAppearanceOverlay="@style/circleImageView"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:text="Md Touhidul Islam"
+                android:layout_marginStart="15dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivUser"
+                app:layout_constraintTop_toTopOf="@+id/ivUser"
+                app:layout_constraintStart_toEndOf="@+id/ivUser"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCommentCount"
+                android:layout_width="wrap_content"
+                tools:text="14"
+                android:text="14"
+                android:layout_marginStart="15dp"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivCommant"
+                app:layout_constraintTop_toTopOf="@+id/ivCommant"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvContent"
+                android:layout_width="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/ivUser"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dictum tristique arcu. Proin tempor sem id sollicitudin consequat. Integer dictum nulla eu libero faucibus sagittis.\n\n Mauris commodo tortor et quam dictum maximus. Donec egestas fermentum pellentesque. Aenean ullamcorper eros sit amet quam posuere, a scelerisque lacus viverra.\n\nAliquam pulvinar turpis accumsan mattis congue. Proin consectetur elit vel tincidunt consectetur. Aenean vehicula egestas lacinia. Aliquam consectetur euismod turpis vitae efficitur. Phasellus nec volutpat lorem. Nulla fermentum"
+                android:textSize="20sp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+                app:layout_constraintStart_toEndOf="@+id/guidelineLeft"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                tools:text="2 hours ago"
+                android:text="0 hours ago"
+                android:layout_marginStart="15dp"
+                android:textSize="14sp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+                app:layout_constraintTop_toTopOf="@+id/tvUserName"
+                app:layout_constraintEnd_toStartOf="@+id/ivCommant"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivCommant"
+                android:layout_width="30dp"
+                android:padding="5dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTime"
+                app:layout_constraintTop_toTopOf="@+id/tvTime"
+                app:layout_constraintEnd_toStartOf="@+id/tvCommentCount"
+                app:srcCompat="@drawable/baseline_comment_24"
+                android:layout_height="30dp"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="20dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
