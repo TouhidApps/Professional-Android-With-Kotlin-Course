@@ -40,4 +40,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnStartService" />
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartServiceForground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Forground Service"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNotificaiton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStopServiceForground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Stop Forground Service"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStartServiceForground"
+        app:layout_constraintStart_toEndOf="@+id/btnStartServiceForground"
+        app:layout_constraintTop_toTopOf="@+id/btnStartServiceForground" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

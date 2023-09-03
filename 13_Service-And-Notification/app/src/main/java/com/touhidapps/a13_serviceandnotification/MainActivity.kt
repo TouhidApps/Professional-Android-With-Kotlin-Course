@@ -43,6 +43,19 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        binding.btnStartServiceForground.setOnClickListener {
+
+            val i = Intent(this, MyServiceForground::class.java)
+            i.putExtra("MY_NAME", "Touhid")
+            startForegroundService(i)
+
+        }
+
+        binding.btnStopServiceForground.setOnClickListener {
+            val i = Intent(this, MyServiceForground::class.java)
+            stopService(i)
+        }
+
 
     } // onCreate
 
