@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
 
         val btnNextPage = findViewById<Button>(R.id.btnNextPage)
         btnNextPage.setOnClickListener {
-            val i = Intent(this@MainActivity, SecondActivity::class.java)
+            val i = Intent(this@MainActivity, SecondActivity::class.java).apply {
+                putExtra("MY_NAME", "Md Touhidul Islam")
+            }
             startActivity(i)
         }
 
