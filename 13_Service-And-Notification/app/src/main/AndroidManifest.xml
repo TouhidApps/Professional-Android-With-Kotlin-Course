@@ -25,6 +25,7 @@
         </activity>
         <service android:exported="false" android:name=".MyService"/>
         <service android:exported="false" android:name=".MyServiceForground"/>
+        <service android:exported="false" android:name=".MyServiceBound"/>
     </application>
 
 </manifest>

@@ -59,4 +59,31 @@
         app:layout_constraintStart_toEndOf="@+id/btnStartServiceForground"
         app:layout_constraintTop_toTopOf="@+id/btnStartServiceForground" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Bound Service"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartServiceForground" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStopBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Stop Bound Service"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStartBound"
+        app:layout_constraintStart_toEndOf="@+id/btnStartBound"
+        app:layout_constraintTop_toTopOf="@+id/btnStartBound" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchIsNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Random Number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartBound" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

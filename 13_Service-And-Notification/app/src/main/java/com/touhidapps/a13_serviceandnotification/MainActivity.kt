@@ -4,12 +4,18 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -18,6 +24,8 @@ import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val TAG = "MainActivity"
 
     lateinit var binding: ActivityMainBinding
 
@@ -56,8 +64,37 @@ class MainActivity : AppCompatActivity() {
             stopService(i)
         }
 
+        // Bound service
+        binding.btnStartBound.setOnClickListener {
+            val i = Intent(this, MyServiceBound::class.java)
+            startService(i)
+            bindService(i, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
+        binding.btnStopBound.setOnClickListener {
+            val i = Intent(this, MyServiceBound::class.java)
+            stopService(i)
+            unbindService(serviceConnection)
+        }
+        binding.switchIsNumber.setOnCheckedChangeListener { compoundButton, b ->
+            myServiceBound?.printRandomNumber(b)
+        }
 
     } // onCreate
+
+    var myBinder: MyServiceBound.MyBinder? = null
+    var myServiceBound: MyServiceBound? = null
+
+    val serviceConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            Log.d(TAG, "onServiceConnected: ")
+            myBinder = p1 as MyServiceBound.MyBinder
+            myServiceBound = myBinder?.getService()
+        }
+
+        override fun onServiceDisconnected(p0: ComponentName?) {
+
+        }
+    }
 
 
     private fun showNotificaiton() {
