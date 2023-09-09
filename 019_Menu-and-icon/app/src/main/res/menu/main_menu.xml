@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuSettings"
+        android:icon="@drawable/baseline_app_settings_alt_24"
+        android:title="Settings"
+        app:showAsAction="always"/>
+    <item android:icon="@drawable/baseline_apps_24"
+        android:title="Main"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:icon="@drawable/baseline_app_settings_alt_24"
+                android:title="About"
+                app:showAsAction="never">
+                <menu>
+                    <item
+                        android:id="@+id/menuAboutMe"
+                        android:title="About Me"
+                        android:icon="@drawable/baseline_app_settings_alt_24"/>
+                    <item
+                        android:id="@+id/menuAboutCompany"
+                        android:title="About Company"
+                        android:icon="@drawable/baseline_apps_24"/>
+                </menu>
+
+            </item>
+            <item
+                android:id="@+id/menuExit"
+                android:icon="@drawable/baseline_app_settings_alt_24"
+                android:title="Exit"
+                app:showAsAction="never"/>
+
+        </menu>
+    </item>
+</menu>
