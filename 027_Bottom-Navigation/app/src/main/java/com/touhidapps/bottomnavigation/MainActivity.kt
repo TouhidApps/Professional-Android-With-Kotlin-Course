@@ -15,13 +15,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.bottomNavigation.removeBadge(R.id.bottom_navigation)
-        binding.bottomNavigation.setOnItemSelectedListener {
-            Toast.makeText(this, "Item: ${it.title}", Toast.LENGTH_SHORT).show()
+        binding.bottomNav.setOnItemSelectedListener {
+
+            when(it.itemId) {
+                R.id.menuAbout -> {
+                    Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
+                }
+                R.id.menuSettings -> {
+                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                }
+            }
             true
         }
-
-
 
 
     }
