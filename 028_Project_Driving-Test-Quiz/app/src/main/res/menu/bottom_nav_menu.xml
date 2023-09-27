@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuQuiz"
+        android:icon="@drawable/baseline_interests_24"
+        android:title="Quiz"/>
+    <item android:id="@+id/menuAbout"
+        android:icon="@drawable/baseline_info_24"
+        android:title="About"/>
+</menu>
