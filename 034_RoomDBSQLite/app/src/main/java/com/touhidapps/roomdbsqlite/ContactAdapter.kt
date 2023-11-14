@@ -5,17 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.touhidapps.roomdbsqlite.databinding.RowContactBinding
+import com.touhidapps.roomdbsqlite.db.ContactEntity
 
 class ContactAdapter(var items: ArrayList<ContactEntity>): RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
 
     lateinit var onEditClick: ((ContactEntity) -> Unit)
+    lateinit var onDeleteClick: ((ContactEntity) -> Unit)
 
     fun setEditClick(action: (ContactEntity) -> Unit) {
         onEditClick = action
     }
-
-    lateinit var onDeleteClick: ((ContactEntity) -> Unit)
-
     fun setDeleteClick(action: (ContactEntity) -> Unit) {
         onDeleteClick = action
     }
@@ -34,17 +33,14 @@ class ContactAdapter(var items: ArrayList<ContactEntity>): RecyclerView.Adapter<
         val item = items[position]
         val binding = holder.binding
 
-        binding.tvFullName.text = "${item.firstName} ${item.lastName}"
-        binding.tvPhoneNumber.text = "${item.phoneNumber}"
+        binding.tvTitle.text = "${item.firstName} ${item.lastName}"
+        binding.tvSubTitle.text = item.phoneNumber
 
     }
 
-
     inner class MyViewHolder(var binding: RowContactBinding): ViewHolder(binding.root) {
         init {
-//            binding.root.setOnClickListener {
-//
-//            }
+            // Click listeners
             binding.btnEdit.setOnClickListener {
                 onEditClick(items[adapterPosition])
             }
@@ -53,6 +49,5 @@ class ContactAdapter(var items: ArrayList<ContactEntity>): RecyclerView.Adapter<
             }
         }
     }
-
 
 }

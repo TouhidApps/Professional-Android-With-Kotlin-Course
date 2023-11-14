@@ -22,26 +22,35 @@ class MainActivity : AppCompatActivity() {
 
     } // onCreate
 
+
     private fun listeners() {
 
         binding.btnSave.setOnClickListener {
-            val mName: String = binding.etName.text.toString()
+
+            val mName = binding.etName.text.toString()
             sharedPref.edit().putString("MY_NAME", mName).apply()
+            sharedPref.edit().putString("MY_ID", "000").apply()
+
         }
+
         binding.btnRead.setOnClickListener {
+
             val myName: String = sharedPref.getString("MY_NAME", "") ?: ""
             binding.tvResult.text = myName
+
         }
+
         binding.btnClear.setOnClickListener {
             binding.etName.text?.clear()
             binding.tvResult.text = ""
-          //  sharedPref.edit().remove("MY_NAME").apply() // clear single data
+
+         //   sharedPref.edit().remove("MY_ID").apply()
             sharedPref.edit().clear().apply() // clear all data
 
         }
 
+    }
 
-    } // listeners
 
 
 }

@@ -1,7 +1,7 @@
 package com.touhidapps.roomdbsqlite
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
+import com.touhidapps.roomdbsqlite.db.AppDatabase
 
 class App: Application() {
 

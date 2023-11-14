@@ -22,12 +22,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     private var imageUri: Uri? = null
-    private lateinit var imgFile : File
+    private lateinit var imgFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         makeImageLocation()
         myPhotoResult()
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             takePhoto()
 
         }
+
 
     } // onCreate
 
@@ -52,28 +54,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun myPhotoResult() {
 
-        startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
+        startForResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-//                result.data?.extras.get("data").
-                // show/save photo
+
                 try {
 
                     val mBitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
 
-                    val rotationMartix = Matrix()
+                    val rotationMatrix = Matrix()
                     if (mBitmap.width >= mBitmap.height) {
-                        rotationMartix.setRotate(90F)
+                        rotationMatrix.setRotate(90F)
                     } else {
-                        rotationMartix.setRotate(0F)
+                        rotationMatrix.setRotate(0F)
                     }
-                    val rotateBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.width, mBitmap.height, rotationMartix, false)
+                    val rotateBitmap: Bitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.width,
+                        mBitmap.height, rotationMatrix, false)
 
                     binding.ivMain.setImageBitmap(rotateBitmap)
 
                     // Save to storage
                     val mTime = System.currentTimeMillis()
-                    val outputStream = FileOutputStream("$imgFile/my_image-${mTime}.jpg")
+                    val outputStream = FileOutputStream("$imgFile/my_image_${mTime}.jpg")
                     rotateBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                     outputStream.flush()
                     outputStream.close()
@@ -83,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-
         }
 
     } // myPhotoResult
@@ -91,8 +93,8 @@ class MainActivity : AppCompatActivity() {
     private fun takePhoto() {
 
         val values = ContentValues().apply {
-            put(MediaStore.Images.Media.TITLE, "my iamge title")
-            put(MediaStore.Images.Media.DESCRIPTION, "my iamge Description")
+            put(MediaStore.Images.Media.TITLE, "My Profile Photo")
+            put(MediaStore.Images.Media.DESCRIPTION, "My Profile Photo")
         }
         imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
@@ -101,5 +103,8 @@ class MainActivity : AppCompatActivity() {
         startForResult.launch(mIntent)
 
     } // takePhoto
+
+
+
 
 }

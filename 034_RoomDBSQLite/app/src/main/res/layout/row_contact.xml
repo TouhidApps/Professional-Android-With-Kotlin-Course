@@ -3,44 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvFullName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        tools:text="Touhidul Islam"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Touhidul Islam" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvPhoneNumber"
-        android:layout_width="match_parent"
+        android:id="@+id/tvSubTitle"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="01786"
-        android:padding="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFullName"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:text="Edit"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         android:text="Delete"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

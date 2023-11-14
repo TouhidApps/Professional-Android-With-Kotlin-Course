@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SharedPreferences"
+rootProject.name = "Encrypted SharedPreferences"
 include(":app")

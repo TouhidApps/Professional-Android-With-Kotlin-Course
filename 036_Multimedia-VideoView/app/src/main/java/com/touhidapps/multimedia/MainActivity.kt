@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding.videoView.setMediaController(mediaController)
 
         binding.videoView.setVideoURI(Uri.parse("android.resource://${packageName}/${R.raw.pink}"))
-        binding.videoView.setOnPreparedListener {
+        binding.videoView.setOnCompletionListener {
             it.isLooping = true
             it.start()
         }
