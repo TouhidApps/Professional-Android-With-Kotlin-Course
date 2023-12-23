@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val mCountries = arrayListOf<CountryModel>()
     private lateinit var adapter: CountryAdapter
     private var mPageNo: Int = 1
+    private val PER_PAGE_DATA = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,10 @@ class MainActivity : AppCompatActivity() {
                         val lm = it as LinearLayoutManager
                         val totalItemCount = lm.itemCount
 
-                        if (!binding.swipeRefreshLayout.isRefreshing && totalItemCount == lm.findLastVisibleItemPosition() + 1) {
+                        if (!binding.swipeRefreshLayout.isRefreshing &&
+                            totalItemCount == lm.findLastVisibleItemPosition() + 1 &&
+                            (totalItemCount % PER_PAGE_DATA) == 0
+                            ) {
                             mPageNo++
                             loadData(mPageNo)
                         }
