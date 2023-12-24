@@ -1,16 +1,22 @@
 package com.touhidapps.retrofitwithcoroutine
 
+import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.util.forEach
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.touhidapps.retrofitwithcoroutine.databinding.ActivityMainBinding
 import com.touhidapps.retrofitwithcoroutine.databinding.AlertInsertDataBinding
+import com.touhidapps.retrofitwithcoroutine.model.LocationModel
 import com.touhidapps.retrofitwithcoroutine.model.UserModel
 import com.touhidapps.retrofitwithcoroutine.networkService.RetrofitClient
 import kotlinx.coroutines.launch
@@ -50,6 +56,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
 
         }
+        userAdapter.setEditClick {
+
+            addUserAlert(false, it)
+
+        }
+
+        userAdapter.setDeleteClick {
+            deleteAlert(it)
+        }
 
 
     } // initUI
@@ -58,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnAddUser.setOnClickListener {
 
-            addUserAlert()
+            addUserAlert(true, null)
 
         }
 
@@ -105,12 +120,64 @@ class MainActivity : AppCompatActivity() {
 
     } // listeners
 
-    private fun addUserAlert() {
+    private fun addUserAlert(isSave: Boolean, userModel: UserModel?) {
 
+        tempSelectedLocationIndexs.clear()
+
+        val bindingAlert : AlertInsertDataBinding
+        val locsForServer = arrayListOf<Int>()
+        val oldLocIds = arrayListOf<Int>()
         AlertDialog.Builder(this).create().apply {
 
-            val bindingAlert = AlertInsertDataBinding.inflate(layoutInflater)
+            bindingAlert = AlertInsertDataBinding.inflate(layoutInflater)
             setView(bindingAlert.root)
+
+            if (!isSave) {
+                bindingAlert.materialTextView.text = "Update User: ${userModel?.name}"
+                bindingAlert.btnSave.setText("Update")
+
+                bindingAlert.etName.setText("${userModel?.name ?: ""}")
+                bindingAlert.etPhone.setText("${userModel?.phoneNumber ?: ""}")
+                bindingAlert.etAmount.setText("${userModel?.amount ?: ""}")
+                bindingAlert.etCity.setText("${userModel?.address?.city ?: ""}")
+                bindingAlert.etCountry.setText("${userModel?.address?.country ?: ""}")
+
+                var loc = ""
+                userModel?.location?.forEachIndexed { index, location ->
+                    if (index != 0) {
+                        loc += ", "
+                    }
+                    loc += location.locationName ?: ""
+                    location.locationId?.let {
+                        oldLocIds.add(it)
+                    }
+
+                }
+                bindingAlert.tvLocations.text = loc
+
+            }
+
+            bindingAlert.btnLocation.setOnClickListener {
+
+                tempCheckedLocation = BooleanArray(tempAllLocations.size) // all false
+                tempAllLocations.forEachIndexed { index, locationModel ->
+                    locationModel.id?.toInt()?.let {
+                        if (oldLocIds.contains(it)) {
+                            tempCheckedLocation.set(index, true)
+                        }
+                    }
+                }
+
+                showLocationChooser(tempAllLocations, tempCheckedLocation,
+                    selected = { s, ids ->
+                       bindingAlert.tvLocations.text = s
+                        locsForServer.clear()
+                        locsForServer.addAll(ids)
+                    }, newLocation = {
+                        bindingAlert.btnLocation.performClick()
+                    })
+
+            }
 
             bindingAlert.btnCancel.setOnClickListener {
                 dismiss()
@@ -132,7 +199,7 @@ class MainActivity : AppCompatActivity() {
                 val city = bindingAlert.etCity.text.toString()
                 val country = bindingAlert.etCountry.text.toString()
 
-                saveUserData(name, phone, mAmount, city, country) {
+                saveUserData(isSave, userModel?.userId, name, phone, mAmount, city, country, locsForServer.toTypedArray()) {
                     dismiss()
                 }
 
@@ -140,26 +207,42 @@ class MainActivity : AppCompatActivity() {
 
         }.show() // alert
 
+        bindingAlert.progressIndicator.visibility = View.VISIBLE
+        getLocations {
+            bindingAlert.progressIndicator.visibility = View.GONE
+        }
+
     } // addUserAlert
 
-    private fun saveUserData(name: String, pNumber: String,
-                             amount: Double, city: String, country: String, success: () -> Unit) {
+    private fun saveUserData(isSave: Boolean, uId: Int?, name: String, pNumber: String,
+                             amount: Double, city: String, country: String, mLocs: Array<Int>, success: () -> Unit) {
 
         val body = HashMap<String, Any?>().apply {
+            if (!isSave) {
+                put("userId", uId)
+            }
             put("name", name)
             put("phoneNumber", pNumber)
             put("amount", amount)
             put("city", city)
             put("country", country)
-            put("locations", arrayOf(16,17))
+            put("locations", mLocs)
         }
         lifecycleScope.launch {
 
-            val resp = RetrofitClient.retrofit.saveUser(body)
-            println("SaveUserResponse: ${resp.result}")
+            val resp = if (isSave) {
+                RetrofitClient.retrofit.saveUser(body)
+            } else {
+                RetrofitClient.retrofit.updateUser(body)
+            }
+
+            println("SaveOrUpdateUserResponse: ${resp.result}")
             Toast.makeText(this@MainActivity, "${resp.result}", Toast.LENGTH_SHORT).show()
 
             success()
+
+            tempPageNumber = 1
+            getUser(tempPageNumber)
 
         }
 
@@ -186,6 +269,209 @@ class MainActivity : AppCompatActivity() {
         }
 
     } // getUser
+
+    private fun deleteAlert(userModel: UserModel?) {
+
+        AlertDialog.Builder(this).apply {
+
+            setTitle("Delete Alert!")
+            setMessage("Do you want to delete ${userModel?.name}?")
+
+            setPositiveButton("Yes", object : OnClickListener {
+
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    performDelete(userModel)
+                }
+
+            })
+
+            setNegativeButton("No", object: OnClickListener {
+
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                }
+
+            })
+
+        }.show()
+
+    } // deleteAlert
+
+    private fun performDelete(userModel: UserModel?) {
+
+        lifecycleScope.launch {
+
+            val body = HashMap<String, Any?>().apply {
+                put("userId", userModel?.userId)
+            }
+
+            val resp = RetrofitClient.retrofit.deleteUser(body)
+
+            println("DeleteResponse ${resp.result}")
+            Toast.makeText(this@MainActivity, "${resp.result}", Toast.LENGTH_SHORT).show()
+
+            tempPageNumber = 1
+            getUser(tempPageNumber)
+
+        }
+
+    } // performDelete
+
+
+    private val tempAllLocations : ArrayList<LocationModel> = arrayListOf()
+    private var tempCheckedLocation = BooleanArray(0)
+    private fun getLocations(success: (List<LocationModel>) -> Unit) {
+
+        lifecycleScope.launch {
+
+            val resp = RetrofitClient.retrofit.getLocations()
+
+            tempAllLocations.clear()
+            tempAllLocations.addAll(resp)
+
+            tempCheckedLocation = BooleanArray(tempAllLocations.size)
+
+            success(resp)
+
+        }
+
+    } // getLocations
+
+
+    private var tempSelectedLocationIndexs = arrayListOf<Int>()
+    private var ci = BooleanArray(0)
+
+    private fun showLocationChooser(
+        mLocations: List<LocationModel>, checkedItems: BooleanArray,
+        selected: (String, ArrayList<Int>) -> Unit, newLocation: () -> Unit
+    ) {
+
+        AlertDialog.Builder(this).apply {
+            setTitle("Location you visited")
+            setCancelable(false)
+
+            val mData = arrayListOf<String>()
+            mLocations.forEach {
+                mData.add(it.locationName ?: "")
+            }
+            val la = arrayOf(*mData.toTypedArray())
+            ci = checkedItems.clone() // It will make the size of array
+
+            if (tempSelectedLocationIndexs.isNotEmpty()) {
+                tempAllLocations.forEachIndexed { index, locationModel ->
+                    if (tempSelectedLocationIndexs.contains(index)) {
+                        ci.set(index, true)
+                    } else {
+                        ci.set(index, false)
+                    }
+                }
+            }
+
+            setMultiChoiceItems(la, ci) { dialog, mIndex, isChecked ->
+
+            }
+
+            setPositiveButton("OK") { p0, p1 ->
+
+                val mCheckedItems = (p0 as AlertDialog).listView.checkedItemPositions
+
+                tempSelectedLocationIndexs.clear()
+                mCheckedItems.forEach { key, value ->
+                    if (value) {
+                        tempSelectedLocationIndexs.add(key)
+                    }
+                }
+
+                var s = ""
+                var ids = ArrayList<Int>()
+                tempAllLocations.forEachIndexed { index, locationModel ->
+
+                    if (tempSelectedLocationIndexs.contains(index)) {
+                        if (s.isNotEmpty()) {
+                            s += ", "
+                        }
+                        s += locationModel.locationName ?: ""
+                        locationModel?.id?.toInt()?.let {
+
+                            ids.add(it)
+
+                        }
+
+                    }
+
+
+                }
+
+                selected(s, ids)
+
+            }
+
+            setNegativeButton("Cancel") { p0, p1 ->
+
+            }
+            setNeutralButton("Add Location") { p0, p1 ->
+                alertNewLocation {
+                    newLocation()
+                }
+            }
+
+
+        }.show()
+
+    } // showLocationChooser
+
+
+    private fun alertNewLocation(success: () -> Unit) {
+
+        AlertDialog.Builder(this).apply {
+
+            setTitle("Enter Location Name")
+            val et = EditText(this@MainActivity)
+            et.hint = "Location Name"
+            setView(et)
+
+            setPositiveButton("Save", object : OnClickListener {
+
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    saveLocation(et.text.toString()) {
+                        getLocations {
+                            success()
+                        }
+                    }
+                }
+
+            })
+
+            setNegativeButton("Cancel", object : OnClickListener {
+
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                }
+
+            })
+
+        }.show()
+
+    } // alertNewLocation
+
+    private fun saveLocation(locName: String, success: () -> Unit) {
+
+        lifecycleScope.launch {
+
+            val body = HashMap<String, Any?>().apply {
+                put("locationName", locName)
+            }
+
+            val resp = RetrofitClient.retrofit.saveLocation(body)
+
+            println("LocationResponse ${resp.result}")
+            Toast.makeText(this@MainActivity, "${resp.result}", Toast.LENGTH_SHORT).show()
+
+            success()
+
+        }
+
+    } // saveLocation
 
 
 }

@@ -10,9 +10,19 @@ import com.touhidapps.retrofitwithcoroutine.model.UserModel
 class UserAdapter(var items: ArrayList<UserModel>): RecyclerView.Adapter<UserAdapter.MyViewHolder>() {
 
     private lateinit var onItemClick:  ((UserModel) -> Unit)
+    private lateinit var onEditClick:  ((UserModel) -> Unit)
+    private lateinit var onDeleteClick:  ((UserModel) -> Unit)
 
     fun setItemClick(action: (UserModel) -> Unit) {
         onItemClick = action
+    }
+
+    fun setEditClick(action: (UserModel) -> Unit) {
+        onEditClick = action
+    }
+
+    fun setDeleteClick(action: (UserModel) -> Unit) {
+        onDeleteClick = action
     }
 
     override fun getItemCount(): Int {
@@ -40,6 +50,13 @@ class UserAdapter(var items: ArrayList<UserModel>): RecyclerView.Adapter<UserAda
             binding.root.setOnClickListener {
                 onItemClick(items[adapterPosition])
             }
+            binding.btnEdit.setOnClickListener {
+                onEditClick(items[adapterPosition])
+            }
+            binding.btnDelete.setOnClickListener {
+                onDeleteClick(items[adapterPosition])
+            }
+
 
         }
     }
