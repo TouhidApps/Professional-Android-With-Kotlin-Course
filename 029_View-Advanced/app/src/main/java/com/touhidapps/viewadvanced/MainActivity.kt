@@ -68,9 +68,6 @@ class MainActivity : AppCompatActivity() {
                 translationX(0F)
                 translationXBy(100F)
 
-                alpha(0.0F)
-                alphaBy(0.5F)
-
                 duration = 1000
                 setListener(object: AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
