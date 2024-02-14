@@ -56,7 +56,6 @@ class HomeFragment: Fragment() {
 
     private fun showUserData() {
 
-
         val user = Firebase.auth.currentUser
         user?.let {
             // Name, email address, and profile photo Url
