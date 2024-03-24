@@ -71,6 +71,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun listeners() {
 
+        binding.btnUploadPhoto.setOnClickListener {
+
+            val i = Intent(this, FileUploadActivity::class.java)
+            startActivity(i)
+
+        }
+
         binding.btnAddUser.setOnClickListener {
 
             addUserAlert(true, null)
