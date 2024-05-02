@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnNotificaiton.setOnClickListener {
 
-            showNotificaiton()
+            showNotification()
 
         }
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun showNotificaiton() {
+    private fun showNotification() {
 
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -109,8 +109,8 @@ class MainActivity : AppCompatActivity() {
         val builder = NotificationCompat.Builder(this, channelId).apply {
             setSmallIcon(R.mipmap.ic_launcher)
             setLargeIcon(bm)
-            setContentTitle("My Notificaiton")
-            setContentText("Hello Notificaiton!")
+            setContentTitle("My Notification")
+            setContentText("Hello Notification!")
             setStyle(NotificationCompat.BigTextStyle().bigText("This is big text This is big text This is big text This is big text ").setSummaryText("#Breaking News"))
             setPriority(NotificationCompat.PRIORITY_DEFAULT)
             setContentIntent(pendingIntent)
@@ -126,6 +126,9 @@ class MainActivity : AppCompatActivity() {
         }
         val rn = Random.nextInt(1000, 10000)
         notifManager.notify(rn, builder.build())
+
+//        add below permission in manifest
+//         <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     } // showNotificaiton
 

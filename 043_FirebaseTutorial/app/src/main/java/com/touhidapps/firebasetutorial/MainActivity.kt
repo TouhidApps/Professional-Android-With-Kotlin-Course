@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
 
         askNotificationPermission()
 
+
+        getFirebaseToken(this) {
+            println("FirebaseToken: " + it)
+            // send token to server using api call
+        }
+
     } // onCreate
 
     override fun onResume() {
