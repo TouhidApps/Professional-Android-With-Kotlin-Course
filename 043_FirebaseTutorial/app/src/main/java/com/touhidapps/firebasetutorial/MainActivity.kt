@@ -3,6 +3,7 @@ package com.touhidapps.firebasetutorial
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             println("FirebaseToken: " + it)
             // send token to server using api call
         }
+
+
+        val pushTitle: String = intent?.getStringExtra("pushTitle") ?: ""
+
+        if (pushTitle.isNotEmpty()) {
+            findViewById<TextView>(R.id.textView).setText(pushTitle)
+        }
+
 
     } // onCreate
 
