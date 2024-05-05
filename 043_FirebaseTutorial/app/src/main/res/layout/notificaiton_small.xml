@@ -7,26 +7,26 @@
 
     <LinearLayout
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvTitle"
             style="@style/TextAppearance.Compat.Notification.Title"
-            android:layout_marginBottom="3dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:lines="1"
-            tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, "
-            android:layout_height="wrap_content"/>
+            tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, " />
 
         <TextView
             android:id="@+id/tvBody"
             style="@style/TextAppearance.Compat.Notification.Line2"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:lines="2"
-            tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, "
-            android:layout_height="wrap_content"/>
+            tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, " />
 
     </LinearLayout>
 

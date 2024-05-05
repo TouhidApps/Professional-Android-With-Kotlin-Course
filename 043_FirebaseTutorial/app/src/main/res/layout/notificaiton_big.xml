@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/tvTitle"
         style="@style/TextAppearance.Compat.Notification.Title"
-        android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:lines="1"
-        tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, "
-        android:layout_height="wrap_content"/>
+        tools:text="Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, Small notification UI, " />
 
     <TextView
         android:id="@+id/tvBody"
